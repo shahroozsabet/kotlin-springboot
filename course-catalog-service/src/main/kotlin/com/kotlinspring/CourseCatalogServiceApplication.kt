@@ -9,4 +9,3 @@ class CourseCatalogServiceApplication
 fun main(args: Array<String>) {
     runApplication<CourseCatalogServiceApplication>(*args)
 }
-
