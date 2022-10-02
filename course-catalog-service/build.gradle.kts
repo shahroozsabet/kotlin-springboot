@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
     id("org.springframework.boot") version "2.6.3"
@@ -18,6 +17,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
 
     //web
@@ -30,6 +30,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.82.Final:osx-aarch_64")
 
     //validator
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -47,7 +48,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("io.mockk:mockk:1.10.4")
     testImplementation("com.ninja-squad:springmockk:3.0.1")
-
 
 }
 
