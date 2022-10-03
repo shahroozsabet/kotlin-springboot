@@ -35,6 +35,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.82.Final:osx-aarch_64")
 
     //validator
     implementation("org.springframework.boot:spring-boot-starter-validation")
