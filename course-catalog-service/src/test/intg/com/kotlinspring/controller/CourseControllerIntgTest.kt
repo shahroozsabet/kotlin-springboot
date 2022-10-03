@@ -1,7 +1,8 @@
 package com.kotlinspring.controller
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
+import com.kotlinspring.repository.CourseRepository
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,26 +12,17 @@ import org.springframework.test.web.reactive.server.WebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
-class GreetingControllerIntgTest {
+internal class CourseControllerIntgTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
 
-    @Test
-    fun retrieveGreeting() {
+    @Autowired
+    lateinit var courseRepository: CourseRepository
 
-        val name = "dilip"
-
-        val result = webTestClient.get()
-            .uri("/v1/greetings/{name}", name)
-            .exchange()
-            .expectStatus().is2xxSuccessful
-            .expectBody(String::class.java)
-            .returnResult()
-
-        Assertions.assertEquals("$name, Hello from default profile", result.responseBody)
+    @BeforeEach
+    fun setUp() {
+        courseRepository.deleteAll()
 
     }
-
-
 }

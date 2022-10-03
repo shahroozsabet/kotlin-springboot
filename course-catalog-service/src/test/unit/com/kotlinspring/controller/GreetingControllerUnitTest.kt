@@ -1,25 +1,35 @@
 package com.kotlinspring.controller
 
-import org.junit.jupiter.api.Assertions
+import com.kotlinspring.service.GreetingService
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.every
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.web.reactive.server.WebTestClient
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+
+@WebMvcTest(controllers = [GreetingController::class])
 @AutoConfigureWebTestClient
-class GreetingControllerIntgTest {
+class GreetingControllerUnitTest {
+
+    @MockkBean
+    lateinit var greetingServiceMock: GreetingService
 
     @Autowired
     lateinit var webTestClient: WebTestClient
+
 
     @Test
     fun retrieveGreeting() {
 
         val name = "dilip"
+
+        every { greetingServiceMock.retrieveGreeting(any()) } returns "$name, Hello from default profile"
 
         val result = webTestClient.get()
             .uri("/v1/greetings/{name}", name)
@@ -28,9 +38,7 @@ class GreetingControllerIntgTest {
             .expectBody(String::class.java)
             .returnResult()
 
-        Assertions.assertEquals("$name, Hello from default profile", result.responseBody)
+        assertEquals("$name, Hello from default profile", result.responseBody)
 
     }
-
-
 }
